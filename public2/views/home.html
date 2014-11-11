@@ -1,0 +1,67 @@
+<form class="form-inline" role="form">
+	<div style="display: inline-table;width: 30px;"></div>
+	<div class="form-group">
+		<div class="input-group">
+			<label for="addHandle" class="input-group-addon">Handle</label> <input
+				type="text" ng-model="handle" ng-init="handle='ggonzales'"
+				class="form-control" id="addHandle" />
+		</div>
+	</div>
+	<button type="submit" class="btn btn-default" ng-click="addHandle()">Add Handle</button>
+	<div style="display: inline-table;width: 30px;"></div>
+	<div class="form-group">
+		<label>Filter:</label>
+	</div>
+	<div class="form-group">
+		<div class="input-group">
+			<label for="probCode" class="input-group-addon">Problem Code</label> <input type="text"
+				ng-model="search.prob" id="probCode" class="form-control" />
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="input-group">
+			<label for="sVeredict" class="input-group-addon">Veredict</label> <select type="text"
+				ng-model="search.ver" class="form-control" id="sVeredict">
+				<option value="!!">--</option>
+				<option ng-repeat="ver in veredicts" value="{{ver}}">{{ver}}</option>
+			</select>
+		</div>
+	</div>
+</form>
+<style>
+table.table {
+	font-size: 10px;
+}
+</style>
+<div style="width: 600px;">
+<table class="table">
+	<tr>
+		<td ng-repeat='handle in handles'>
+			<table class="table">
+				<tr>
+					<th>Index</th>
+					<th>Id</th>
+					<th>Date</th>
+					<th>Problem</th>
+					<th>Veredict</th>
+					<th>Time</th>
+					<th>Memory</th>
+					<th>Language</th>
+				</tr>
+				<tr ng-repeat="subs in submissions[handle] | filterSearch:search"
+					class="{{subs.ver=='AC'?'success':subs.ver=='TLE'?'warning':'danger'}}">
+					<td>{{$index + 1}}</td>
+					<td>{{subs.id}}</td>
+					<td>{{subs.date | shortDateTime}}</td>
+					<td>{{subs.prob}}</td>
+					<td>{{subs.ver}}</td>
+					<td>{{subs.time}}</td>
+					<td>{{subs.memory}}</td>
+					<td>{{subs.lang}}</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+</div>
